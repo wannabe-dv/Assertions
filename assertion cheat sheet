@@ -1,0 +1,45 @@
+Assertions:
+1. evaluated in observed region
+2. assertions are evaluated based on sampled value
+3. sampled value of a variable is its value in prepone region
+4. if the same variable is used as expression for clock and to evaluate the assertion, the result might be different since the assertion is triggered at the variable's current value while the assertion uses
+   the sampled value.
+5. A property may involve checking of one or more sequential behaviors beginning at various times
+6. $
+7. ##[*]
+8. ##[+]
+
+Example:
+C1: cover property (@(posedge clk) mycond);
+sequence seq1;
+@(posedge clk) 1;
+endsequence
+C2: cover property (@seq1 mycond);
+// fastclk is a clock driven at 2x the frequency of clk
+sequence seq2;
+@(posedge fastclk) !clk ##1 clk;
+endsequence
+C3: cover property (@seq2 mycond);
+
+Example
+bit a;
+integer b;
+byte q[$];
+property p1;
+$rose(a) |-> q[0];
+endproperty
+property p2;
+integer l_b;
+($rose(a), l_b = b) |-> ##[3:10] q[l_b];
+endproperty
+
+Example
+property p2;
+realtime l_t;
+@(posedge clk)
+(count == 0, l_t = $realtime) ##1 (count == 7)[->1] |->
+$realtime – l_t < 50.5;
+endproperty
+
+Example
+a ##1 b ##1 c ##3 `true 
