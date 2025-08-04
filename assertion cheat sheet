@@ -8,6 +8,15 @@ Assertions:
 6. $
 7. ##[*]
 8. ##[+]
+9. [*]
+10.[=]
+11.[->]
+12.throughout
+13.within
+14.intersect
+15.and
+16.or
+
 
 Example:
 C1: cover property (@(posedge clk) mycond);
