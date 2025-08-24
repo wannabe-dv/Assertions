@@ -51,4 +51,4 @@ $realtime – l_t < 50.5;
 endproperty
 
 Example
-a ##1 b ##1 c ##3 `true 
+a ##1 b ##1 c ##3 1'b1 (this extends the sequence for three additional clock cycles)
